@@ -158,12 +158,7 @@ async function main() {
     }
 
     const passphrase = core.getInput('code-sign-certificate-passphrase')
-    if (!passphrase) {
-      throw new Error(
-        'code-sign-certificate requires code-sign-certificate-passphrase.'
-      )
-    }
-
+    
     await core.group('Configuring code signing', async () => {
       await createKeychain(certificate, passphrase)
     })
