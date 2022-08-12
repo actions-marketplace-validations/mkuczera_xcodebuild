@@ -1,4 +1,4 @@
-name: mxcl/Xcodebuild
+name: mkuczera/Xcodebuild
 author: Max Howell
 description: >
   A continuously resilient `xcodebuild` action.
