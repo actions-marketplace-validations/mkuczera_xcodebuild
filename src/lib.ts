@@ -406,12 +406,12 @@ export async function createKeychain(
   core.info('Importing certificate to keychain')
   const certificatePath = `${process.env.RUNNER_TEMP}/${name}.p12`
   fs.writeFileSync(certificatePath, certificate, { encoding: 'base64' })
+
   try {
-    security(
+    const args = [
       'import',
       certificatePath,
-      '-P',
-      passphrase,
+      ...(!!passphrase?.length ? ['-P', passphrase] : []),
       '-A',
       '-t',
       'cert',
@@ -419,8 +419,10 @@ export async function createKeychain(
       'pkcs12',
       '-x',
       '-k',
-      keychainPath
-    )
+      keychainPath,
+    ]
+
+    security(...args)
   } finally {
     fs.unlinkSync(certificatePath)
   }
